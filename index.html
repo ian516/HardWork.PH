@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HardWork PH - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div id="site-name"><a href="index.html">HardWork PH</a></div>
+        <nav id="main-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <span id="user-info"></span>
+            <button id="logoutButton" style="display:none;">Logout</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-section" id="newsfeed" style="display: none;">
+            <h2>Newsfeed</h2>
+            <div id="postSection"></div>
+        </section>
+
+        <section class="content-section" id="loginSignup">
+            <div class="button-container">
+                <button id="showLogin" class="round-box">Login</button>
+                <button id="showSignup" class="round-box">Sign Up</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HardWork PH</p>
+    </footer>
+    <script src="header-footer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
