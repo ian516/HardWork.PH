@@ -31,67 +31,55 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'signup.html';
     });
 
-    loginForm?.addEventListener('submit', async function(event) {
+    loginForm?.addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
+        const user = users.find(user => user.username === username && user.password === password);
         
-        try {
-            const response = await fetch('https://your-backend-url.com/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
-            });
-
-            if (response.ok) {
-                const user = await response.json();
-                currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                window.location.href = 'index.html'; // Redirect after login
-            } else {
-                document.getElementById('loginMessage').textContent = 'Invalid username or password';
-            }
-        } catch (error) {
-            console.error('Error:', error);
+        if (user) {
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            window.location.href = 'index.html'; // Redirect after login
+        } else {
+            document.getElementById('loginMessage').textContent = 'Invalid username or password';
         }
     });
 
-    signupForm?.addEventListener('submit', async function(event) {
+    signupForm?.addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('signupUsername').value;
         const password = document.getElementById('signupPassword').value;
         const role = document.getElementById('signupRole').value;
 
-        try {
-            const response = await fetch('https://your-backend-url.com/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, role })
-            });
-
-            if (response.ok) {
-                alert('Thank you for signing up! Start posting your services now!');
-                const newUser = { username, password, role };
-                currentUser = newUser;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                window.location.href = 'index.html'; // Redirect after sign up
-            } else {
-                const errorMessage = await response.text();
-                document.getElementById('signupMessage').textContent = errorMessage;
-            }
-        } catch (error) {
-            console.error('Error:', error);
+        if (!users.find(user => user.username === username)) {
+            const newUser = { username, password, role };
+            users.push(newUser);
+            saveUsers(); // Save updated users list to localStorage
+            alert('Welcome to Hardwork.PH! Click here to continue');
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            window.location.href = 'index.html'; // Redirect after sign up
+        } else {
+            document.getElementById('signupMessage').textContent = 'Username already exists';
         }
     });
 
-    logoutButton?.addEventListener('click', function() {
+    logoutButton.addEventListener('click', function() {
         currentUser = null;
         localStorage.removeItem('currentUser');
+        window.location.href = 'index.html'; // Redirect after logout
         updateUIForLoggedOutUser();
     });
 
     function loadUsers() {
-        // Load users from localStorage or another source if needed
+        if (localStorage.getItem('users')) {
+            users = JSON.parse(localStorage.getItem('users'));
+        }
+    }
+
+    function saveUsers() {
+        localStorage.setItem('users', JSON.stringify(users));
     }
 
     function updateUIForLoggedInUser() {
@@ -100,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
         newsfeedSection.style.display = 'block';
         loginSignupSection.style.display = 'none';
 
+        // Handle post creation if user is a customer
         if (currentUser.role === 'customer') {
             const postForm = document.createElement('form');
             postForm.innerHTML = `
