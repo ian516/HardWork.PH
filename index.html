@@ -3,39 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HardWork PH - Home</title>
-    <link rel="stylesheet" href="style.css">
+    <title>HardWork PH</title>
+    <style>
+        /* Add your CSS styling here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        #header {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        #loginSignup {
+            margin-top: 60px;
+        }
+        #user-info {
+            margin-top: 20px;
+        }
+        #logoutButton {
+            margin-top: 10px;
+            display: none; /* Hidden by default, shown when user logs in */
+        }
+        #newsfeed {
+            margin-top: 20px;
+            display: none; /* Hidden by default, shown when user logs in */
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div id="site-name"><a href="index.html">HardWork PH</a></div>
-        <nav id="main-nav">
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="contact.html">Contact Us</a>
-            <span id="user-info"></span>
-            <button id="logoutButton" style="display:none;">Logout</button>
-        </nav>
-    </header>
+    <div id="header">
+        <h1>HardWork PH</h1>
+    </div>
 
-    <main>
-        <section class="content-section" id="newsfeed" style="display: none;">
-            <h2>Newsfeed</h2>
-            <div id="postSection"></div>
-        </section>
+    <div id="loginSignup">
+        <button id="showLogin">Login</button>
+        <button id="showSignup">Sign Up</button>
+    </div>
 
-        <section class="content-section" id="loginSignup">
-            <div class="button-container">
-                <button id="showLogin" class="round-box">Login</button>
-                <button id="showSignup" class="round-box">Sign Up</button>
-            </div>
-        </section>
-    </main>
+    <div id="user-info"></div>
+    <button id="logoutButton">Logout</button>
 
-    <footer>
-        <p>&copy; 2024 HardWork PH</p>
-    </footer>
-    <script src="header-footer.js"></script>
+    <div id="newsfeed">
+        <h2>Newsfeed</h2>
+        <div id="postSection"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
